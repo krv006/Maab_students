@@ -76,3 +76,4 @@ async def main():
 
 # Jupyter Notebook uchun ishga tushirish
 await main()
+
