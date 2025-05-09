@@ -122,7 +122,6 @@ try:
 
     new_df = pd.DataFrame(data)
 
-    # CSV mavjud bo‘lsa, o‘qiymiz
     if os.path.exists(file_path):
         old_df = pd.read_csv(file_path)
     else:
