@@ -1,15 +1,25 @@
+import os
+
+import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import pandas as pd
 
+# Excel fayli nomi
+file_path = "forecast.xlsx"
+
+# Brauzerni ishga tushurish
 driver = webdriver.Chrome()
 driver.get("https://hydromet.uz/")
+
+# Bo'sh dictionary
 data = {
     "city": [],
     "day": [],
     "day_part": [],
     "degree": []
 }
+
+# Saytdagi barcha shaharlardagi ob-havo ma’lumotlarini olish
 options = driver.find_elements(By.CSS_SELECTOR, "select option")
 for option in options:
     try:
@@ -23,8 +33,9 @@ for option in options:
             data["day_part"].append(ls[1])
             data['degree'].append(ls[2].replace("…", "-"))
     except:
-        break
+        continue
 
+# Region nomlarini mapping qilish
 city_region = {
     "tashkent": "Tashkent",
     "gulistan": "Sirdaryo viloyati",
@@ -32,23 +43,47 @@ city_region = {
     "nukus": "Qoraqolpog'iston respublikasi",
     "bukhara": "Bukhara",
     "navoiy": "Navoiy",
-    "samarkand": "samarkand",
-    "jizzakh": "jizzakh",
-    "qarshi": "qashqadaryo",
-    "termez": "surkhandarya",
-    "fergana": "fergana",
-    "namangan": "namangan",
-    "andijan": "andijan",
-    "nurafshon": "tashkent viloyati",
-    "kamchik": "andijon",
-    "chimgan": "tashkent"
+    "samarkand": "Samarkand",
+    "jizzakh": "Jizzakh",
+    "qarshi": "Qashqadaryo",
+    "termez": "Surkhandarya",
+    "fergana": "Fergana",
+    "namangan": "Namangan",
+    "andijan": "Andijan",
+    "nurafshon": "Tashkent viloyati",
+    "kamchik": "Andijon",
+    "chimgan": "Tashkent"
 }
+region = lambda x: city_region.get(x.lower(), "Unknown").capitalize()
 
-region = lambda x: city_region[x].capitalize()
+# Yangi ma’lumotlar DataFrame shaklida
+new_df = pd.DataFrame(data)
+new_df['region'] = [region(x) for x in new_df['city']]
 
-df = pd.DataFrame(data)
+# Eski ma’lumotni o‘qish (agar mavjud bo‘lsa)
+if os.path.exists(file_path):
+    old_df = pd.read_excel(file_path)
+else:
+    old_df = pd.DataFrame(columns=new_df.columns)
 
-df['region'] = [region(x.lower()) for x in df['city']]
+# Eski va yangi ma’lumotlarni birlashtirishdan oldin: har bir unikal kombinatsiyani tekshirish
+merged_df = old_df.copy()
 
-df.to_excel("forecast.xlsx", index=False)
+for _, row in new_df.iterrows():
+    mask = (
+            (merged_df['city'] == row['city']) &
+            (merged_df['day'] == row['day']) &
+            (merged_df['day_part'] == row['day_part'])
+    )
+
+    if mask.any():
+        # Agar mavjud bo‘lsa, yangilash (agar degree o‘zgargan bo‘lsa)
+        if merged_df.loc[mask, 'degree'].values[0] != row['degree']:
+            merged_df.loc[mask, 'degree'] = row['degree']
+    else:
+        # Agar mavjud bo‘lmasa, yangi qatorda qo‘shish
+        merged_df = pd.concat([merged_df, pd.DataFrame([row])], ignore_index=True)
+
+# Faylga saqlash
+merged_df.to_excel(file_path, index=False)
 driver.quit()
