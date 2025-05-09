@@ -4,7 +4,7 @@ import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-file_path = "forecast.xlsx"
+file_path = "../../UZEX/xlsx_to_csv/forecast.xlsx"
 
 driver = webdriver.Chrome()
 driver.get("https://hydromet.uz/")
