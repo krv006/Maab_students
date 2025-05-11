@@ -170,7 +170,7 @@ def scrape_meteo_data():
 
         # SQL so‘rovi
         sql_query = """
-            INSERT INTO meteo_data_test (
+            INSERT INTO meteo_data (
                 date,
                 region_code,
                 timestamp,

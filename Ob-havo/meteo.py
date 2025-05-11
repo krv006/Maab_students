@@ -189,7 +189,7 @@ def scrape_meteo_data():
 
         # Step 2: Click 'Информация'
         info_item = wait.until(EC.element_to_be_clickable(
-            (By.XPATH, "//ul[contains(@class, 'dropdown-menu')]/li/a[@data-target='#panelMeteodata']")
+            (By.XPATH, "/  /ul[contains(@class, 'dropdown-menu')]/li/a[@data-target='#panelMeteodata']")
         ))
         info_item.click()
         logger.info("'Информация' menu clicked.")
