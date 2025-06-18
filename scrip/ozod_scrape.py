@@ -1,46 +1,89 @@
+import requests
 import pandas as pd
 import json
 
-with open("deals.json", "r", encoding="utf-8") as f:
-    deals = json.load(f)
+# Replace with your new URL
+DATA_URL = "https://smartup.online/b/anor/mxsx/mr/inventory$export"  # Update this with the new URL
+JSON_FILE = "smartup_export.json"
 
-df = pd.DataFrame(deals)
+cookies = {
+    '_lrt': '1750230987989',
+    'AMP_8db086350f': 'JTdCJTIyZGV2aWNlSWQlMjIlM0ElMjIzNTYyMzA4Mi0zYzRiLTQyZmEtOGNiZS01Mzg1ZTdkYzQxNjIlMjIlMkMlMjJzZXNzaW9uSWQlMjIlM0ExNzUwMjMwOTg5NjY3JTJDJTIyb3B0T3V0JTIyJTNBZmFsc2UlMkMlMjJsYXN0RXZlbnRUaW1lJTIyJTNBMTc1MDIzMDk4OTY3NCUyQyUyMmxhc3RFdmVudElkJTIyJTNBNiUyQyUyMnBhZ2VDb3VudGVyJTIyJTNBMSU3DA==',
+    'biruni_device_id': 'EB45BB246B00670DFFE13902931B8B7D1E64D2CACC8BAFB46624D080CFED4A8D',
+    'cw_conversation': 'eyJhbGciOiJIUzI1NiJ9.eyJzb3VyY2VfaWQiOiJlNzcyMjc2OS0zYWY0LTQ5NTgtYjJmMy1lNGVjMmM4MzcyZGMiLCJpbmJveF9pZCI6MX0.ojZPTcjIY8SWQAfqPcpE4KLF3hgP8Xgy0ri3HPyZ0xQ',
+    'JSESSIONID': 'sx_app2~D1B32A53D6DB1C503EB75CAF7C97CAD9',
+}
 
-print("Hamma Bitimlar (1-5 qator):")
-print(df.head())
+def explore_json(data, prefix=""):
+    """Recursively explore JSON to find lists for DataFrame conversion."""
+    if isinstance(data, dict):
+        for key, value in data.items():
+            if isinstance(value, (dict, list)):
+                yield from explore_json(value, f"{prefix}{key}.")
+    elif isinstance(data, list) and data:
+        yield prefix[:-1]  # Remove trailing dot
 
-buyers_summary = df.groupby("buyer_name")["deal_cost"].agg(["count", "sum"]).reset_index()
-print("\nDeal type bo'yicha tahlil:")
-print(buyers_summary)
+try:
+    print("⬇️ 1. Ma'lumot yuklanmoqda...")
+    response = requests.get(DATA_URL, cookies=cookies)
+    response.raise_for_status()
 
-deal_type_summary = df.groupby("deal_type")["deal_cost"].agg(["count", "sum"]).reset_index()
-print("\nDEal type bo'yicha tahlil:")
-print(deal_type_summary)
+    # Check content type
+    content_type = response.headers.get('Content-Type', '').lower()
+    print(f"📄 Content-Type: {content_type}")
 
-status_summary = df.groupby("status")["deal_cost"].agg(["count", "sum"]).reset_index()
-print("\nStatus bo'yicha tahlil:")
-print(status_summary)
+    # Parse JSON response
+    print("🔍 JSON pars qilinmoqda...")
+    data = response.json()
 
-region_summary = df.groupby("refgion_name")["deal_cost"].agg(["count", "sum"]).reset_index()
-print("\nViloyatlar bo'yicha tahlil:")
-print(region_summary)
+    # Explore JSON structure to find potential lists
+    list_keys = list(explore_json(data))
+    print(f"🔎 Topilmagan ro'yxat kalitlari: {list_keys if list_keys else 'Hech qanday royxat topilmadi'}")
 
-product_summary = df.groupby("product_name")["deal_cost"].agg(["count", "sum"]).reset_index()
-print("\nMahsulotlar bo'yicha tahlil:")
-print(product_summary)
+    # Try to create DataFrame from the JSON
+    df = None
+    if list_keys:
+        # Try the first list key for normalization
+        for key in list_keys:
+            try:
+                # Extract the nested list
+                nested_data = data
+                for part in key.split("."):
+                    nested_data = nested_data[part]
+                # Flatten the JSON with all parent fields
+                df = pd.json_normalize(nested_data, errors="ignore")
+                print(f"✅ '{key}' kalitidan DataFrame yaratildi")
+                break
+            except (KeyError, TypeError):
+                continue
+    else:
+        # If no nested lists, try flat JSON
+        if isinstance(data, list):
+            df = pd.DataFrame(data)
+        elif isinstance(data, dict):
+            df = pd.DataFrame([data])
+        else:
+            raise ValueError("JSON ma'lumotlari ro'yxat yoki lug'at shaklida emas")
 
-df['contract_date'] = pd.to_datetime(df['contract_date'], errors='coerce')
-date_summary = df.groupby(df['contract_date'].dt.to_period("M"))["deal_cost"].agg(["count", "sum"]).reset_index()
-print("\nSana (oylik) bo'yicha tahllil:")
-print(date_summary)
+    if df is not None and not df.empty:
+        # Save DataFrame to JSON
+        df.to_json(JSON_FILE, orient="records", indent=4, force_ascii=False)
+        print(f"✅ JSON fayl saqlandi: {JSON_FILE}")
+        # Print first few rows for verification
+        print("📊 DataFrame namunasi (birinchi 2 qator):")
+        print(df.head(2).to_string())
+    else:
+        raise ValueError("DataFrame yaratib bo'lmadi, ma'lumot bo'sh yoki noto'g'ri formatda")
 
-with pd.ExcelWriter("deal_tahlil_tooliq.xlsx") as writer:
-    df.to_excel(writer, sheet_name="Barcha_deal", index=False)
-    buyers_summary.to_excel(writer, sheet_name="Xaridor_tahlil", index=False)
-    deal_type_summary.to_excel(writer, sheet_name="Deal_Type_tahlil", index=False)
-    status_summary.to_excel(writer, sheet_name="Status_tahlil", index=False)
-    region_summary.to_excel(writer, sheet_name="Mahsulotalr", index=False)
-    product_summary.to_excel(writer, sheet_name="Mahsulotlar", index=False)
-    date_summary.to_excel(writer, sheet_name="Sana_oylik", index=False)
-
-print("\nTahlil tugadi. Fayl 'deal_tahlil_tooliq.xlsx' ismi bilan saqlandi.")
+except Exception as e:
+    print(f"❌ Xatolik: {e}")
+    # Save raw response for debugging
+    with open("smartup_export.txt", "wb") as f:
+        f.write(response.content)
+    print("📜 Response smartup_export.txt ga saqlandi.")
+    # Print JSON snippet for debugging
+    try:
+        print("📜 JSON namunasi (birinchi 500 belgigacha):")
+        print(json.dumps(data, indent=2)[:500])
+    except:
+        print("📜 JSON ni chop etib bo'lmadi")
