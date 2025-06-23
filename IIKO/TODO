@@ -1,0 +1,34 @@
+# ORGANIZATION INFO
+GET https://api-ru.iiko.services/api/1/organizations
+
+# SALES & ORDER DATA
+POST https://api-ru.iiko.services/api/1/deliveries/by_delivery_date_and_status
+POST https://api-ru.iiko.services/api/1/deliveries/by_id
+POST https://api-ru.iiko.services/api/1/order/by_id
+POST https://api-ru.iiko.services/api/1/order/by_table
+
+# MENU INFORMATION
+POST https://api-ru.iiko.services/api/1/nomenclature
+POST https://api-ru.iiko.services/api/2/menu
+
+# PAYMENT & DISCOUNT DETAILS
+GET https://api-ru.iiko.services/api/1/payment_types
+GET https://api-ru.iiko.services/api/1/discounts
+
+# STOCK & STOP LISTS
+POST https://api-ru.iiko.services/api/1/stop_lists
+POST https://api-ru.iiko.services/api/1/stop_lists/check
+
+# DELIVERY ISSUES / CANCELLATIONS
+GET https://api-ru.iiko.services/api/1/cancel_causes
+POST https://api-ru.iiko.services/api/1/deliveries/update_order_problem
+
+# EMPLOYEE AND COURIER DATA
+GET https://api-ru.iiko.services/api/1/employees/couriers
+GET https://api-ru.iiko.services/api/1/employees/couriers/by_role
+GET https://api-ru.iiko.services/api/1/employees/info
+
+# REGION AND LOCATION INFO
+GET https://api-ru.iiko.services/api/1/regions
+GET https://api-ru.iiko.services/api/1/cities
+POST https://api-ru.iiko.services/api/1/streets/by_city
