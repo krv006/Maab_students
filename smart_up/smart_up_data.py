@@ -1,11 +1,11 @@
-import requests
-import pandas as pd
 import json
+
+import pandas as pd
+import requests
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-import time
 
-# === STEP 1: Avtomatik cookie olish (Selenium orqali) ===
+
 def get_cookies_from_browser(url):
     print("🌐 Brauzer ochilmoqda... Login qiling...")
 
@@ -24,7 +24,6 @@ def get_cookies_from_browser(url):
     return {cookie['name']: cookie['value'] for cookie in cookies}
 
 
-# === STEP 2: JSONni tahlil qilish uchun yordamchi funksiya ===
 def explore_json(data, prefix=""):
     if isinstance(data, dict):
         for key, value in data.items():
@@ -34,13 +33,10 @@ def explore_json(data, prefix=""):
         yield prefix[:-1]  # Remove trailing dot
 
 
-# === STEP 3: Asosiy ishchi funksiya ===
 def fetch_and_export_data(data_url, output_file):
     try:
-        # Step 3.1: Cookie larni avtomatik olish
         cookies = get_cookies_from_browser("https://smartup.online")
 
-        # Step 3.2: So‘rov yuborish
         print("⬇️ Ma'lumot yuklanmoqda...")
         response = requests.get(data_url, cookies=cookies)
         response.raise_for_status()
@@ -51,7 +47,6 @@ def fetch_and_export_data(data_url, output_file):
         print("🔍 JSON pars qilinmoqda...")
         data = response.json()
 
-        # Step 3.3: JSON tuzilmasini aniqlash
         list_keys = list(explore_json(data))
         print(f"🔎 Topilgan ro'yxat kalitlari: {list_keys if list_keys else 'Hech qanday ro‘yxat topilmadi'}")
 
@@ -95,7 +90,6 @@ def fetch_and_export_data(data_url, output_file):
             print("📜 JSONni chiqarib bo‘lmadi")
 
 
-# === STEP 4: Chaqirish ===
 if __name__ == "__main__":
     DATA_URL = "https://smartup.online/b/anor/mxsx/mdeal/return$export"
     OUTPUT_FILE = "smartup_return_export.json"
