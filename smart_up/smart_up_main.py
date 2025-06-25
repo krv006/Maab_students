@@ -10,8 +10,8 @@ def get_cookies_from_browser(url):
     print("🌐 Brauzer ochilmoqda... Login qiling...")
 
     chrome_options = Options()
-    chrome_options.add_experimental_option("detach", False)  # optional: avtomatik yopish
-    chrome_options.add_argument("--start-maximized")  # fullscreen
+    chrome_options.add_experimental_option("detach", False)
+    chrome_options.add_argument("--start-maximized")
 
     driver = webdriver.Chrome(options=chrome_options)
     driver.get(url)
