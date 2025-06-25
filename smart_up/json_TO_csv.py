@@ -2,7 +2,7 @@ import json
 import pandas as pd
 from pandas import json_normalize
 
-with open("smartup_return_export.json", "r", encoding="utf-8") as f:
+with open("smartup_order_export.json", "r", encoding="utf-8") as f:
     raw_data = json.load(f)
 
 
@@ -31,5 +31,5 @@ for col in df.columns:
         pass
 
 # === 6. CSV saqlash ===
-df.to_csv("cleaned_smartup_general.csv", index=False)
+df.to_csv("smartup_order_export.csv", index=False)
 print("✅ Har qanday JSON fayl uchun flatten qilingan CSV tayyor.")
