@@ -50,8 +50,8 @@ def upload_to_sql(df, table_name):
         print(f"🔌 SQL Serverga ulanmoqda, jadval: {table_name}")
         params = urllib.parse.quote_plus(
             "DRIVER={ODBC Driver 17 for SQL Server};"
-            "SERVER=WIN-LORQJU2719N;"
-            "DATABASE=Test;"
+            "SERVER=localhost;"
+            "DATABASE=Epco;"
             "Trusted_Connection=yes;"
             "TrustServerCertificate=yes;"
         )
