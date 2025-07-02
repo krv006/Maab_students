@@ -2,11 +2,10 @@ import pandas as pd
 import json
 import ast
 from uuid import uuid4
-
+import re
 
 # --- Helper Functions ---
 def safe_parse(text):
-    """JSONni xavfsiz parslash, xato bo'lsa bo'sh dict qaytaradi"""
     try:
         return json.loads(text) if isinstance(text, str) else {}
     except json.JSONDecodeError:
@@ -14,7 +13,6 @@ def safe_parse(text):
 
 
 def parse_email_field(record, field):
-    """Email manzilini olish"""
     return record.get(field, {}).get("emailAddress", {}).get("address", "").lower().strip()
 
 
