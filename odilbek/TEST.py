@@ -55,7 +55,7 @@ def normalize_emails(value):
 
 
 # --- Load Data ---
-df_raw = pd.read_csv("raw_comm_rows (6).csv")
+df_raw = pd.read_csv("../xlsx/raw_comm_rows (6).csv")
 df_raw["parsed"] = df_raw["raw_content"].apply(safe_parse)
 
 # --- Normalize JSON Columns ---

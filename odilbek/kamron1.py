@@ -68,7 +68,7 @@ def normalize_emails(emails):
 
 # --- Load Data ---
 try:
-    df_raw = pd.read_csv("raw_comm_rows (6).csv")
+    df_raw = pd.read_csv("../xlsx/raw_comm_rows (6).csv")
 except FileNotFoundError:
     print("Xato: 'raw_comm_rows (6).csv' fayli topilmadi. Fayl yo'lini tekshiring.")
     exit()

@@ -6,7 +6,7 @@ from uuid import uuid4
 import re
 
 # --- Load and parse ---
-df_raw = pd.read_csv("raw_comm_rows (6).csv")
+df_raw = pd.read_csv("../xlsx/raw_comm_rows (6).csv")
 
 def safe_parse(text):
     try:
