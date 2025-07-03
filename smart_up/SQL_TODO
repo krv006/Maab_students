@@ -29,3 +29,17 @@ https://smartup.online/b/anor/mxsx/mkw/input$export
 select*from[dbo].[ReceiptsWH_suppliers]
 select*from[dbo].[ReceiptsWH_inputs]
 select*from[dbo].[ReceiptsWH_input_items]
+
+
+
+todo ORDER BOGLANISH
+select * from[dbo].[orders]
+where first_product_id = 2334281
+select * from[dbo].[order_products]
+select * from[dbo].[order_details]
+
+first_product_id
+product_id
+product_id
+
+shular ortasida boladi
