@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Excel faylni yuklash
-file_path = "simple.xlsx"
+file_path = "../simple.xlsx"
 df = pd.read_excel(file_path, header=None)
 
 # 1-3 qatorlarni 1 qatorga aylantirish
