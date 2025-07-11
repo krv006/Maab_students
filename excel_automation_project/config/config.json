@@ -1,0 +1,44 @@
+{
+  "reserve_column_values_list": ["Резерв", "Бест отгрузка"],
+
+  "database_connection_string": "mssql+pyodbc://@PC-1/shayana_sales_db?trusted_connection=yes&driver=ODBC+Driver+17+for+SQL+Server",
+
+  "region_matching_from_database": false,
+
+  "final_sum": "FINAL SUM",
+  "final_sum_minus10": "FINAL SUM ( Minus 10 % )",
+  "final_sum_reklama": "Final summa for Reklama",
+  "final_sum_leksiya": "Final summa for Leksiya",
+
+  "final_sum_minus_percent": 10,
+  "final_sum_for_leksiya_percent": 2,
+
+  "vtorichka_sheet_name": "Вторичка",
+  "main_header_name_for_client_info": "Данные клиентов",
+  "header_name_for_clients": "Клиент",
+  "header_name_for_region": "Регион",
+  "header_name_for_territory": "Территори",
+  "header_name_for_quantity": "Количество",
+  "header_name_for_total_sales": "Сумма продажи",
+  "header_name_for_total": "Итого",
+
+  "source_path_for_1c": "data/1c_files/raw_1c.xlsx",
+  "path_for_1c_pivoted": "data/1c_files/shayana_cleaned_pivoted.xlsx",
+  "path_for_1c_optovik": "data/1c_files/shayana_optovik.xlsx",
+  "1c_data_sheet_name": "Shayana",
+
+  "optiviks_source_path": "data/prepared/optoviklar.xlsx",
+  "dictionary_path": "data/prepared/drug_name_dictionary.xlsx",
+  "source_path_drug_groups": "data/prepared/drug_groups.xlsx",
+  "budget_difference_path": "data/prepared/budget_difference.xlsx",
+  "path_for_region_js": "config/region.json",
+  "path_for_teritory_js": "config/teritory.json",
+
+  "regions_manual_correction": "data/to_fix/regions_needing_manual_correction.xlsx",
+  "duplicate_clients": "data/to_fix/duplicate_clients.xlsx",
+  "path_for_unmatched_drugs_txt": "data/to_fix",
+  "regions_to_be_corrected": "data/prepared/regions_to_be_corrected.xlsx",
+
+  "path_for_vtorichka": "data/final/Вторичка.xlsx",
+  "path_for_po_gorodom": "data/final"
+}

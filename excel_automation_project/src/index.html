@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pharma Data Processing Suite</title>
+    <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+    <style>
+      /* CSS RESET */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary: #2c3e50;
+        --secondary: #3498db;
+        --accent: #1abc9c;
+        --light: #f8f9fa;
+        --dark: #212529;
+        --success: #28a745;
+        --warning: #ffc107;
+        --danger: #dc3545;
+        --info: #17a2b8;
+        --gray: #6c757d;
+        --light-gray: #e9ecef;
+        --sidebar-width: 200px;
+        --transition: all 0.3s ease;
+      }
+
+      body.dark-mode {
+        --primary: #1a252f;
+        --secondary: #2c82c9;
+        --accent: #16a085;
+        --light: #2d3436;
+        --dark: #f8f9fa;
+        --gray: #adb5bd;
+        --light-gray: #343a40;
+      }
+
+      body {
+        background-color: var(--light);
+        color: var(--dark);
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        transition: var(--transition);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .app-container {
+        display: flex;
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      /* Header styles */
+      .app-header {
+        background-color: var(--primary);
+        color: white;
+        padding: 15px 25px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+        flex-shrink: 0;
+        justify-content: space-between;
+      }
+
+      .app-logo {
+        display: flex;
+        align-items: center;
+        margin-right: 15px;
+      }
+
+      .app-logo-icon {
+        width: 40px;
+        height: 40px;
+        margin-right: 7px;
+        color: var(--accent);
+      }
+
+      .app-title {
+        font-size: 22px;
+        font-weight: 600;
+      }
+
+      .app-subtitle {
+        font-size: 14px;
+        opacity: 0.8;
+        margin-top: 3px;
+      }
+
+      /* Dark mode toggle */
+      .mode-toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .light-icon {
+        opacity: 1;
+      }
+      .dark-icon {
+        opacity: 0.7;
+      }
+
+      body.dark-mode .light-icon {
+        opacity: 0.7;
+      }
+      body.dark-mode .dark-icon {
+        opacity: 1;
+      }
+
+      .mode-switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+      }
+
+      .mode-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .mode-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.2);
+        transition: var(--transition);
+        border-radius: 34px;
+      }
+
+      .mode-slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: var(--transition);
+        border-radius: 50%;
+      }
+
+      input:checked + .mode-slider {
+        background-color: var(--accent);
+      }
+
+      input:checked + .mode-slider:before {
+        transform: translateX(26px);
+      }
+
+      .mode-icon {
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Sidebar styles */
+      .sidebar {
+        width: var(--sidebar-width);
+        background-color: var(--primary);
+        padding: 20px 0;
+        display: flex;
+        flex-direction: column;
+        transition: var(--transition);
+        flex-shrink: 0;
+      }
+
+      .sidebar-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--accent);
+        padding: 0 20px 15px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .sidebar-buttons {
+        padding: 0 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .sidebar button {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 14px;
+        cursor: pointer;
+        transition: var(--transition);
+        text-align: left;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .sidebar button:hover:not(:disabled) {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+      }
+
+      .sidebar button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .sidebar-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 12px;
+        flex-shrink: 0;
+      }
+
+      .sidebar button::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 4px;
+        background: var(--accent);
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: transform 0.3s ease;
+      }
+
+      .sidebar button:hover:not(:disabled)::after {
+        transform: scaleY(1);
+      }
+
+      /* Main content area */
+      .main-content {
+        flex: 1;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        overflow: hidden;
+        background-color: var(--light-gray);
+      }
+
+      /* Log container */
+      .log-container {
+        flex: 1;
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .log-container.dark-mode {
+        background-color: var(--light);
+      }
+
+      #log-scroll-container {
+        flex: 1;
+        overflow-y: auto;
+        min-height: 0;
+      }
+
+      .log-content {
+        display: block;
+      }
+
+      #log-text {
+        display: block;
+        padding: 0 20px 20px 20px;
+        font-family: "Consolas", "Courier New", monospace;
+        font-size: 16px;
+        line-height: 1.5;
+        white-space: pre-wrap;
+        box-sizing: border-box;
+      }
+      .no-logs {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        color: var(--gray);
+        font-style: italic;
+        text-align: center;
+        padding: 20px;
+        flex: 1;
+      }
+
+      .no-logs-icon {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 15px;
+        opacity: 0.3;
+      }
+
+      /* Status bar */
+      .status-bar {
+        background-color: var(--primary);
+        padding: 12px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      .status-info {
+        display: flex;
+        gap: 25px;
+      }
+
+      .status-label {
+        display: flex;
+        align-items: center;
+      }
+
+      .status-indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: var(--gray);
+        margin-right: 10px;
+      }
+
+      .status-indicator.ready {
+        background-color: var(--success);
+      }
+
+      .status-indicator.running {
+        background-color: var(--accent);
+        animation: pulse 1.5s infinite;
+      }
+
+      .status-indicator.error {
+        background-color: var(--danger);
+      }
+
+      .timer-label {
+        font-family: monospace;
+        background-color: rgba(0, 0, 0, 0.2);
+        padding: 3px 10px;
+        border-radius: 4px;
+      }
+
+      .footer-buttons {
+        display: flex;
+        gap: 10px;
+      }
+
+      .close-btn,
+      .clear-btn {
+        background-color: rgba(255, 255, 255, 0.15);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 8px 16px;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .close-btn:hover,
+      .clear-btn:hover {
+        background-color: rgba(255, 255, 255, 0.25);
+      }
+
+      /* Log message styles */
+      .log-warning {
+        color: var(--warning);
+      }
+
+      .log-error {
+        color: var(--danger);
+      }
+
+      .log-success {
+        color: var(--success);
+        font-weight: bold;
+      }
+
+      .log-error-message {
+        color: var(--danger);
+        font-weight: bold;
+      }
+
+      .log-info {
+        color: var(--info);
+      }
+
+      /* Animations */
+      @keyframes pulse {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      /* Scrollbar styling */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.2);
+      }
+
+      body.dark-mode ::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      body.dark-mode ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      body.dark-mode ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- App Header -->
+    <div class="app-header">
+      <div class="app-logo">
+        <!-- <svg
+          class="app-logo-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M8 12H16M12 8V16M4 12C4 7.58172 7.58172 4 12 4C16.4183 4 20 7.58172 20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12Z"
+          />
+        </svg> -->
+
+        <div>
+          <div class="app-title">Data Processing Suite</div>
+          <div class="app-subtitle">
+            Automated pharma accounting & data pipelines into database.
+          </div>
+        </div>
+      </div>
+      <div class="mode-toggle">
+        <svg
+          class="mode-icon light-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+          />
+        </svg>
+        <label class="mode-switch">
+          <input type="checkbox" id="mode-toggle" />
+          <span class="mode-slider"></span>
+        </label>
+        <svg
+          class="mode-icon dark-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <div class="app-container">
+      <!-- Sidebar with controls -->
+      <div class="sidebar">
+        <div class="sidebar-title">Process Controls</div>
+        <div class="sidebar-buttons">
+          <button id="btn-1c">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="sidebar-icon"
+              viewBox="0 0 512 512"
+            >
+              <rect
+                fill="none"
+                stroke="currentColor"
+                stroke-miterlimit="10"
+                stroke-width="32"
+                x="280.48"
+                y="122.9"
+                width="63.03"
+                height="378.2"
+                rx="31.52"
+                transform="rotate(-45 312.002 311.994)"
+              />
+              <path
+                d="M178.38 178.38a31.64 31.64 0 000 44.75L223.25 268 268 223.25l-44.87-44.87a31.64 31.64 0 00-44.75 0z"
+              />
+              <path
+                stroke="currentColor"
+                stroke-miterlimit="10"
+                stroke-width="32"
+                stroke-linecap="round"
+                d="M48 192h48M90.18 90.18l33.94 33.94M192 48v48M293.82 90.18l-33.94 33.94M124.12 259.88l-33.94 33.94"
+              />
+            </svg>
+            Clean 1c File
+          </button>
+          <button id="btn-vtendia">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="sidebar-icon"
+              viewBox="0 0 512 512"
+            >
+              <path
+                d="M336 264.13V436c0 24.3-19.05 44-42.95 44H107c-23.95 0-43-19.7-43-44V172a44.26 44.26 0 0144-44h94.12a24.55 24.55 0 0117.49 7.36l109.15 111a25.4 25.4 0 017.24 17.77z"
+                fill="none"
+                stroke="currentColor"
+                stroke-linejoin="round"
+                stroke-width="32"
+              />
+              <path
+                d="M200 128v108a28.34 28.34 0 0028 28h108"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="32"
+              />
+              <path
+                d="M176 128V76a44.26 44.26 0 0144-44h94a24.83 24.83 0 0117.61 7.36l109.15 111A25.09 25.09 0 01448 168v172c0 24.3-19.05 44-42.95 44H344"
+                fill="none"
+                stroke="currentColor"
+                stroke-linejoin="round"
+                stroke-width="32"
+              />
+              <path
+                d="M312 32v108a28.34 28.34 0 0028 28h108"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="32"
+              />
+            </svg>
+            Create Vtorichka
+          </button>
+          <button id="btn-etl">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="sidebar-icon"
+              viewBox="0 0 512 512"
+            >
+              <ellipse
+                cx="256"
+                cy="128"
+                rx="192"
+                ry="80"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-miterlimit="10"
+                stroke-width="32"
+              />
+              <path
+                d="M448 214c0 44.18-86 80-192 80S64 258.18 64 214M448 300c0 44.18-86 80-192 80S64 344.18 64 300"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-miterlimit="10"
+                stroke-width="32"
+              />
+              <path
+                d="M64 127.24v257.52C64 428.52 150 464 256 464s192-35.48 192-79.24V127.24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-miterlimit="10"
+                stroke-width="32"
+              />
+            </svg>
+            Insert into DB
+          </button>
+          <button id="btn-stop" disabled>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="sidebar-icon"
+              viewBox="0 0 512 512"
+            >
+              <!-- Outer circle -->
+              <path
+                d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
+                fill="none"
+                stroke="currentColor"
+                stroke-miterlimit="10"
+                stroke-width="32"
+              />
+
+              <!-- Inner square with same color as stroke -->
+              <path
+                d="M310.4 336H201.6a25.62 25.62 0 01-25.6-25.6V201.6a25.62 25.62 0 0125.6-25.6h108.8a25.62 25.62 0 0125.6 25.6v108.8a25.62 25.62 0 01-25.6 25.6z"
+                fill="currentColor"
+              />
+            </svg>
+            Stop Process
+          </button>
+        </div>
+      </div>
+
+      <!-- Main content area -->
+      <div class="main-content">
+        <div class="log-container">
+          <div id="log-scroll-container">
+            <div id="log-text">
+              <div class="no-logs">
+                <svg
+                  class="no-logs-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 5H7C5.89543 5 5 5.89543 5 7V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V7C19 5.89543 18.1046 5 17 5H15M9 5C9 6.10457 9.89543 7 11 7H13C14.1046 7 15 6.10457 15 5M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5"
+                  />
+                </svg>
+                <div>No log entries yet...</div>
+                <div class="no-logs-sub">Run a process to see logs here</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Status bar -->
+    <div class="status-bar">
+      <div class="status-info">
+        <div class="status-label">
+          <div class="status-indicator ready"></div>
+          <span id="status-label">Ready</span>
+        </div>
+        <div class="timer-label" id="timer-label">00:00:00</div>
+      </div>
+      <div class="footer-buttons">
+        <button class="clear-btn" id="btn-clear">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+            />
+          </svg>
+          Clear Log
+        </button>
+        <button class="close-btn" id="close-btn">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+          Close
+        </button>
+      </div>
+    </div>
+
+    <script>
+      let bridge,
+        currentMode = "light";
+
+      document.addEventListener("DOMContentLoaded", () => {
+        new QWebChannel(qt.webChannelTransport, (ch) => {
+          bridge = ch.objects.bridge;
+          bridge.appendLog.connect(appendLog);
+          bridge.updateStatus.connect(updateStatus);
+          bridge.updateTimer.connect(updateTimer);
+          bridge.setButtonsState.connect(setButtonsState);
+          bridge.setMode.connect(setMode);
+          bridge.stopTimer.connect(() => {});
+          setMode("light");
+        });
+
+        document.getElementById("btn-1c").onclick = () =>
+          bridge.runProcess("src/cleaning_1c/1c_main.py", "Clean 1c File");
+
+        document.getElementById("btn-vtendia").onclick = () =>
+          bridge.runProcess("src/excel_automation/vt_main.py", "Vtorichka");
+        document.getElementById("btn-etl").onclick = () =>
+          bridge.runProcess(
+            "src/dashboard_automation/etl_main.py",
+            "Database Insert"
+          );
+        document.getElementById("btn-stop").onclick = () =>
+          bridge.stopProcess();
+        document.getElementById("btn-clear").onclick = () => bridge.clearLog();
+        document.getElementById("mode-toggle").onchange = () =>
+          bridge.toggleMode();
+        document.getElementById("close-btn").onclick = () => bridge.closeApp();
+      });
+
+      function appendLog(msg, type) {
+        const logText = document.getElementById("log-text");
+
+        if (type === "clear") {
+          logText.innerHTML = `
+    <div class="no-logs">
+      <svg class="no-logs-icon" ...></svg>
+      <div>No log entries yet...</div>
+      <div class="no-logs-sub">Run a process to see logs here</div>
+    </div>`;
+          return;
+        }
+
+        // Remove placeholder on first real message
+        const placeholder = logText.querySelector(".no-logs");
+        if (placeholder) placeholder.remove();
+
+        const el = document.createElement("div");
+        el.textContent = msg;
+
+        // Add class based on message type
+        const classMap = {
+          warning: "log-warning",
+          error: "log-error",
+          success: "log-success",
+          error_message: "log-error-message",
+          info: "log-info",
+        };
+
+        const cls = classMap[type] || null;
+        if (cls) {
+          el.classList.add(cls);
+        }
+
+        // Append new message at the bottom
+        logText.appendChild(el);
+
+        // Scroll to the bottom to show latest messages
+        requestAnimationFrame(() => {
+          const c = document.getElementById("log-scroll-container");
+          c.scrollTop = c.scrollHeight;
+        });
+      }
+      // ////////////////////////////////////////
+
+      function updateStatus(txt) {
+        document.getElementById("status-label").textContent = txt;
+        const ind = document.querySelector(".status-indicator");
+        ind.className = "status-indicator";
+        if (txt.toLowerCase().includes("running")) ind.classList.add("running");
+        else if (
+          txt.toLowerCase().includes("error") ||
+          txt.toLowerCase().includes("stopped")
+        )
+          ind.classList.add("error");
+        else ind.classList.add("ready");
+      }
+
+      function updateTimer(t) {
+        document.getElementById("timer-label").textContent = t;
+      }
+
+      function setButtonsState(v, e, o, s) {
+        document.getElementById("btn-vtendia").disabled = !v;
+        document.getElementById("btn-etl").disabled = !e;
+        document.getElementById("btn-1c").disabled = !o;
+        document.getElementById("btn-stop").disabled = !s;
+      }
+
+      function setMode(mode) {
+        const b = document.body;
+        const lc = document.querySelector(".log-container");
+
+        if (mode === "dark") {
+          b.classList.add("dark-mode");
+          lc.classList.add("dark-mode");
+          document.getElementById("mode-toggle").checked = true;
+        } else {
+          b.classList.remove("dark-mode");
+          lc.classList.remove("dark-mode");
+          document.getElementById("mode-toggle").checked = false;
+        }
+      }
+    </script>
+  </body>
+</html>
