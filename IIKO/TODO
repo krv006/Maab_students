@@ -32,3 +32,6 @@ GET https://api-ru.iiko.services/api/1/employees/info
 GET https://api-ru.iiko.services/api/1/regions
 GET https://api-ru.iiko.services/api/1/cities
 POST https://api-ru.iiko.services/api/1/streets/by_city
+
+
+https://olimp-co-co.iikoweb.ru/api/1/organizations/settings
