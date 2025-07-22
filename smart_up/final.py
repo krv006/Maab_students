@@ -51,7 +51,8 @@ def upload_to_sql(df, table_name):
         params = urllib.parse.quote_plus(
             "DRIVER={ODBC Driver 17 for SQL Server};"
             "SERVER=localhost;"
-            "DATABASE=Epco;"
+            "DATABASE=DealDb;"
+            # "DATABASE=API_TEST;"
             "Trusted_Connection=yes;"
             "TrustServerCertificate=yes;"
         )
