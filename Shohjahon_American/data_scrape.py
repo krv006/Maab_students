@@ -4,7 +4,9 @@ import pandas as pd
 import requests
 
 API_KEY = "HI_BITCH"
+
 PAGE_SIZE = 100
+
 SAVE_PATH = "/lakehouse/default/Files/subapi3/"
 
 standard_endpoints = [
