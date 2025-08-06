@@ -1,0 +1,626 @@
+[
+    {
+        "Id": 1,
+        "Materials": [
+            {
+                "Id": 7,
+                "Number": "4R",
+                "Description": "Stabilizer-4 R",
+                "Quantity": 4.23,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 8,
+                "Number": "CEMENT 1",
+                "Description": "PORTLAND CEMENT TYPE IL",
+                "Quantity": 226.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 10,
+                "Number": "FLYASH 4",
+                "Description": "FLYASH 4",
+                "Quantity": 56.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 11,
+                "Number": "ROCK",
+                "Description": "#57 CRUSHED STONE",
+                "Quantity": 1845.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 13,
+                "Number": "WATER",
+                "Description": "WATER",
+                "Quantity": 28.8,
+                "UomId": 3,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 17,
+                "Number": "NC-4",
+                "Description": "NC-4",
+                "Quantity": 0.0,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 393,
+                "Number": "686",
+                "Description": "686",
+                "Quantity": 43.4,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 394,
+                "Number": "CONSAND",
+                "Description": "ALAN RITCHEY",
+                "Quantity": 1669.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 405,
+                "Number": "PLAST",
+                "Description": "PLASTIMENT",
+                "Quantity": 5.64,
+                "UomId": 4,
+                "PerHundredWeight": false
+            }
+        ]
+    },
+    {
+        "Id": 2,
+        "Materials": [
+            {
+                "Id": 405,
+                "Number": "PLAST",
+                "Description": "PLASTIMENT",
+                "Quantity": 5.64,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 394,
+                "Number": "CONSAND",
+                "Description": "ALAN RITCHEY",
+                "Quantity": 1669.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 393,
+                "Number": "686",
+                "Description": "686",
+                "Quantity": 51.86,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 17,
+                "Number": "NC-4",
+                "Description": "NC-4",
+                "Quantity": 0.0,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 15,
+                "Number": "CEMENT 3",
+                "Description": "PORTLAND CEMENT TYPE I/II 3",
+                "Quantity": 226.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 16,
+                "Number": "FLYASH 3",
+                "Description": "FLYASH 3",
+                "Quantity": 56.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 13,
+                "Number": "WATER",
+                "Description": "WATER",
+                "Quantity": 28.8,
+                "UomId": 3,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 11,
+                "Number": "ROCK",
+                "Description": "#57 CRUSHED STONE",
+                "Quantity": 1845.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 7,
+                "Number": "4R",
+                "Description": "Stabilizer-4 R",
+                "Quantity": 4.23,
+                "UomId": 4,
+                "PerHundredWeight": false
+            }
+        ]
+    },
+    {
+        "Id": 3,
+        "Materials": [
+            {
+                "Id": 7,
+                "Number": "4R",
+                "Description": "Stabilizer-4 R",
+                "Quantity": 4.23,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 13,
+                "Number": "WATER",
+                "Description": "WATER",
+                "Quantity": 28.8,
+                "UomId": 3,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 352,
+                "Number": "CEMENT 2",
+                "Description": "PORTLAND CEMENT TYPE I/II 2",
+                "Quantity": 226.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 353,
+                "Number": "FLYASH",
+                "Description": "FLYASH",
+                "Quantity": 56.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 17,
+                "Number": "NC-4",
+                "Description": "NC-4",
+                "Quantity": 0.0,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 393,
+                "Number": "686",
+                "Description": "686",
+                "Quantity": 51.86,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 394,
+                "Number": "CONSAND",
+                "Description": "ALAN RITCHEY",
+                "Quantity": 1669.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 405,
+                "Number": "PLAST",
+                "Description": "PLASTIMENT",
+                "Quantity": 5.64,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 354,
+                "Number": "ROCK2",
+                "Description": "#57 CRUSHED STONE",
+                "Quantity": 1768.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 404,
+                "Number": "#57 GR",
+                "Description": "#57 GRAVEL",
+                "Quantity": 0.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            }
+        ]
+    },
+    {
+        "Id": 4,
+        "Materials": [
+            {
+                "Id": 356,
+                "Number": "CEMENT 4",
+                "Description": "PORTLAND CEMENT TYPE I/II 4",
+                "Quantity": 226.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 405,
+                "Number": "PLAST",
+                "Description": "PLASTIMENT",
+                "Quantity": 5.64,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 396,
+                "Number": "CONSAND2",
+                "Description": "RESOLVE",
+                "Quantity": 1663.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 393,
+                "Number": "686",
+                "Description": "686",
+                "Quantity": 43.4,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 17,
+                "Number": "NC-4",
+                "Description": "NC-4",
+                "Quantity": 0.0,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 353,
+                "Number": "FLYASH",
+                "Description": "FLYASH",
+                "Quantity": 56.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 13,
+                "Number": "WATER",
+                "Description": "WATER",
+                "Quantity": 28.8,
+                "UomId": 3,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 11,
+                "Number": "ROCK",
+                "Description": "#57 CRUSHED STONE",
+                "Quantity": 1845.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 7,
+                "Number": "4R",
+                "Description": "Stabilizer-4 R",
+                "Quantity": 4.23,
+                "UomId": 4,
+                "PerHundredWeight": false
+            }
+        ]
+    },
+    {
+        "Id": 5,
+        "Materials": [
+            {
+                "Id": 7,
+                "Number": "4R",
+                "Description": "Stabilizer-4 R",
+                "Quantity": 4.23,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 13,
+                "Number": "WATER",
+                "Description": "WATER",
+                "Quantity": 28.8,
+                "UomId": 3,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 353,
+                "Number": "FLYASH",
+                "Description": "FLYASH",
+                "Quantity": 56.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 15,
+                "Number": "CEMENT 3",
+                "Description": "PORTLAND CEMENT TYPE I/II 3",
+                "Quantity": 226.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 17,
+                "Number": "NC-4",
+                "Description": "NC-4",
+                "Quantity": 0.0,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 393,
+                "Number": "686",
+                "Description": "686",
+                "Quantity": 51.86,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 396,
+                "Number": "CONSAND2",
+                "Description": "RESOLVE",
+                "Quantity": 1663.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 405,
+                "Number": "PLAST",
+                "Description": "PLASTIMENT",
+                "Quantity": 5.64,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 477,
+                "Number": "ROCK3",
+                "Description": "#57 CRUSHED STONE",
+                "Quantity": 1928.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            }
+        ]
+    },
+    {
+        "Id": 6,
+        "Materials": [
+            {
+                "Id": 405,
+                "Number": "PLAST",
+                "Description": "PLASTIMENT",
+                "Quantity": 5.64,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 354,
+                "Number": "ROCK2",
+                "Description": "#57 CRUSHED STONE",
+                "Quantity": 1768.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 396,
+                "Number": "CONSAND2",
+                "Description": "RESOLVE",
+                "Quantity": 1663.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 393,
+                "Number": "686",
+                "Description": "686",
+                "Quantity": 51.86,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 17,
+                "Number": "NC-4",
+                "Description": "NC-4",
+                "Quantity": 0.0,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 13,
+                "Number": "WATER",
+                "Description": "WATER",
+                "Quantity": 28.8,
+                "UomId": 3,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 10,
+                "Number": "FLYASH 4",
+                "Description": "FLYASH 4",
+                "Quantity": 56.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 7,
+                "Number": "4R",
+                "Description": "Stabilizer-4 R",
+                "Quantity": 4.23,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 8,
+                "Number": "CEMENT 1",
+                "Description": "PORTLAND CEMENT TYPE IL",
+                "Quantity": 226.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            }
+        ]
+    },
+    {
+        "Id": 7,
+        "Materials": [
+            {
+                "Id": 8,
+                "Number": "CEMENT 1",
+                "Description": "PORTLAND CEMENT TYPE IL",
+                "Quantity": 226.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 7,
+                "Number": "4R",
+                "Description": "Stabilizer-4 R",
+                "Quantity": 4.23,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 11,
+                "Number": "ROCK",
+                "Description": "#57 CRUSHED STONE",
+                "Quantity": 1845.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 13,
+                "Number": "WATER",
+                "Description": "WATER",
+                "Quantity": 28.8,
+                "UomId": 3,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 17,
+                "Number": "NC-4",
+                "Description": "NC-4",
+                "Quantity": 0.0,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 16,
+                "Number": "FLYASH 3",
+                "Description": "FLYASH 3",
+                "Quantity": 56.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 393,
+                "Number": "686",
+                "Description": "686",
+                "Quantity": 51.86,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 399,
+                "Number": "CONSAND3",
+                "Description": "CONCRETE SAND",
+                "Quantity": 1650.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 405,
+                "Number": "PLAST",
+                "Description": "PLASTIMENT",
+                "Quantity": 5.64,
+                "UomId": 4,
+                "PerHundredWeight": false
+            }
+        ]
+    },
+    {
+        "Id": 8,
+        "Materials": [
+            {
+                "Id": 405,
+                "Number": "PLAST",
+                "Description": "PLASTIMENT",
+                "Quantity": 5.64,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 399,
+                "Number": "CONSAND3",
+                "Description": "CONCRETE SAND",
+                "Quantity": 1650.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 393,
+                "Number": "686",
+                "Description": "686",
+                "Quantity": 51.86,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 16,
+                "Number": "FLYASH 3",
+                "Description": "FLYASH 3",
+                "Quantity": 56.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 17,
+                "Number": "NC-4",
+                "Description": "NC-4",
+                "Quantity": 0.0,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 13,
+                "Number": "WATER",
+                "Description": "WATER",
+                "Quantity": 28.8,
+                "UomId": 3,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 11,
+                "Number": "ROCK",
+                "Description": "#57 CRUSHED STONE",
+                "Quantity": 1845.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 7,
+                "Number": "4R",
+                "Description": "Stabilizer-4 R",
+                "Quantity": 4.23,
+                "UomId": 4,
+                "PerHundredWeight": false
+            },
+            {
+                "Id": 8,
+                "Number": "CEMENT 1",
+                "Description": "PORTLAND CEMENT TYPE IL",
+                "Quantity": 226.0,
+                "UomId": 2,
+                "PerHundredWeight": false
+            }
+        ]
+    }
+]
