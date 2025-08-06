@@ -50,6 +50,6 @@ class Dog(Animal):
     def sound(self):
         return "Woof!"
 
-# animal = Animal()       # ❌ Error: abstract class
+# animal = Animal()
 dog = Dog()
-print(dog.sound())        # ✅ "Woof!"
+print(dog.sound())
